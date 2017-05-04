@@ -66,12 +66,12 @@ root_url = %(protocol)s://%(domain)s
 # as seperate properties or as on string using the url propertie.
 
 # Either "mysql", "postgres" or "sqlite3", it's your choice
-type = {{sql_db_type}}
-host = {{sql_db_host}}:{{sql_db_port}}
-name = {{sql_db_name}}
-user = {{sql_db_user}}
+type = {{grafana_sql_db_type}}
+host = {{grafana_sql_db_host}}:{{grafana_sql_db_port}}
+name = {{grafana_sql_db_name}}
+user = {{grafana_sql_db_user}}
 # If the password contains # or ; you have to wrap it with trippel quotes. Ex """#password;"""
-password = """{{sql_db_password}}"""
+password = """{{grafana_sql_db_password}}"""
 
 # Use either URL or the previous fields to configure the database
 # Example: mysql://user:secret@host:port/database
