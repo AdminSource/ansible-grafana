@@ -1,2 +1,69 @@
 ---
 # tasks file for ansible-grafana
+
+# Add grafana repo
+- apt_key:
+    id: C2E73424D59097AB
+    url: 'https://packagecloud.io/gpg.key'
+    state: present
+
+- apt_repository:
+    repo: deb https://packagecloud.io/grafana/testing/debian/ jessie main
+    state: present
+    filename: 'grafana'
+
+# Update pkg cache and install pkgs
+- name: Update PKG cache
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+    with_items:
+      - adduser
+      - libfontconfig
+      - nginx
+      - grafana
+    apt:
+      name: '{{item}}'
+      state: installed
+
+
+- name: Enable services
+    with_items:
+      - nginx
+      - grafana-server
+    service:
+      name: '{{item}}'
+      enabled: yes
+
+- name: Nginx config for Grafana
+    template:
+      src: grafana_nginx.j2
+      dest: /etc/nginx/sites-available/grafana
+      owner: root
+      group: root
+      mode: 0644
+
+- name: Nginx grafana site enable
+    file:
+      src: /etc/nginx/sites-available/grafana
+      dest: /etc/nginx/sites-enabled/grafana
+      state: link
+
+- name: Nginx remove default site
+    with_items:
+      - /etc/nginx/sites-enabled/default
+      - /etc/nginx/sites-available/default
+    file:
+      path: '{{item}}'
+      state: absent
+
+- name: Grafana configuration
+    template:
+      src: grafana_config.j2
+      dest: /etc/grafana/grafana.ini
+      owner: root
+      group: root
+      mode: 0644
+
+...
