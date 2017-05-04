@@ -18,52 +18,52 @@
     update_cache: yes
 
 - name: Install dependencies
-    with_items:
-      - adduser
-      - libfontconfig
-      - nginx
-      - grafana
-    apt:
-      name: '{{item}}'
-      state: installed
+  apt:
+    name: '{{item}}'
+    state: installed
+  with_items:
+    - adduser
+    - libfontconfig
+    - nginx
+    - grafana
 
 
 - name: Enable services
-    with_items:
-      - nginx
-      - grafana-server
-    service:
-      name: '{{item}}'
-      enabled: yes
+  with_items:
+    - nginx
+    - grafana-server
+  service:
+    name: '{{item}}'
+    enabled: yes
 
 - name: Nginx config for Grafana
-    template:
-      src: grafana_nginx.j2
-      dest: /etc/nginx/sites-available/grafana
-      owner: root
-      group: root
-      mode: 0644
+  template:
+    src: grafana_nginx.j2
+    dest: /etc/nginx/sites-available/grafana
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Nginx grafana site enable
-    file:
-      src: /etc/nginx/sites-available/grafana
-      dest: /etc/nginx/sites-enabled/grafana
-      state: link
+  file:
+    src: /etc/nginx/sites-available/grafana
+    dest: /etc/nginx/sites-enabled/grafana
+    state: link
 
 - name: Nginx remove default site
-    with_items:
-      - /etc/nginx/sites-enabled/default
-      - /etc/nginx/sites-available/default
-    file:
-      path: '{{item}}'
-      state: absent
+  with_items:
+    - /etc/nginx/sites-enabled/default
+    - /etc/nginx/sites-available/default
+  file:
+    path: '{{item}}'
+    state: absent
 
 - name: Grafana configuration
-    template:
-      src: grafana_config.j2
-      dest: /etc/grafana/grafana.ini
-      owner: root
-      group: root
-      mode: 0644
+  template:
+    src: grafana_config.j2
+    dest: /etc/grafana/grafana.ini
+    owner: root
+    group: root
+    mode: 0644
 
 ...
