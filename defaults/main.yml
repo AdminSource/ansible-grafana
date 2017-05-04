@@ -2,11 +2,11 @@
 # defaults file for ansible-grafana
 
 grafana_sql_db_type: mysql
-grafana_sql_db_host: @@@DatabaseHost@@@
-grafana_sql_db_port: @@@DatabasePort@@@
-grafana_sql_db_name: @@@DatabaseName@@@
-grafana_sql_db_user: @@@DatabaseUser@@@
-grafana_sql_db_password: @@@DatabasePassword@@@
-grafana_admin_user: @@@GrafanaAdminUser@@@
-grafana_admin_password: @@@GrafanaAdminPassword@@@
+grafana_sql_db_host: '@@@DatabaseHost@@@'
+grafana_sql_db_port: '@@@DatabasePort@@@'
+grafana_sql_db_name: '@@@DatabaseName@@@'
+grafana_sql_db_user: '@@@DatabaseUser@@@'
+grafana_sql_db_password: '@@@DatabasePassword@@@'
+grafana_admin_user: '@@@GrafanaAdminUser@@@'
+grafana_admin_password: '@@@GrafanaAdminPassword@@@'
 
